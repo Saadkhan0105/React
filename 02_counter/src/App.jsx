@@ -10,7 +10,10 @@ function App() {
 
   const addValue = () => {
     if (counter < 20) {
-      setCounter(counter + 1);
+      setCounter(prevCounter => prevCounter + 1);
+      setCounter(prevCounter => prevCounter + 1);
+      setCounter(prevCounter => prevCounter + 1);
+      setCounter(prevCounter => prevCounter + 1);
       setError(''); // Clear error message
       setBgColor(''); // Reset background color
     } else {
@@ -21,7 +24,10 @@ function App() {
 
   const removeValue = () => {
     if (counter > 0) {
-      setCounter(counter - 1);
+      setCounter(prevCounter => prevCounter - 1);
+      setCounter(prevCounter => prevCounter - 1);
+      setCounter(prevCounter => prevCounter - 1);
+      setCounter(prevCounter => prevCounter - 1);
       setError(''); // Clear error message
       setBgColor(''); // Reset background color
     } else {
