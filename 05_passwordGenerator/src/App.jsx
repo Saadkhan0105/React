@@ -5,7 +5,8 @@ function App() {
   const [length, setLength] = useState(8)
   const [numAllowed, setNumAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState("");
+  const [copied, setCopied] = useState(false);
 
   // useRef hook
   const passwordRef = useRef(null)
@@ -25,12 +26,14 @@ function App() {
   }, [length, numAllowed, charAllowed, setPassword])
 
   const copyPasswordToClipboard = useCallback(() => {
-    passwordRef.current?.select();
-    passwordRef.current?.setSelectionRange(0, 99);
-    window.navigator.clipboard.writeText(password);
-    setCopied(true);
-    setTimeout(()=> setCopied(false), 2000);
-  }, [password])
+    if (passwordRef.current) {
+      passwordRef.current.select();
+      passwordRef.current.setSelectionRange(0, 99); // Selects the text in the input
+      window.navigator.clipboard.writeText(password); // Copy text to clipboard
+      setCopied(true); // Show the "Copied!" message on the button
+      setTimeout(() => setCopied(false), 2000); // Reset the copied state after 2 seconds
+    }
+  }, [password]);
 
   useEffect(() => {
     passwordGenerator()
@@ -48,7 +51,15 @@ function App() {
           readOnly
           ref={passwordRef}
           />
-          <button onClick= {copyPasswordToClipboard}className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
+          <button
+            onClick={copyPasswordToClipboard}
+            className={`outline-none px-3 py-0.5 shrink-0 ${
+              copied ? 'bg-green-500' : 'bg-blue-700'
+            } text-white`}
+            disabled={copied} // Disable button temporarily when "Copied!" is displayed
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
           
         </div>
         <div className='flex text-sm gap-x-2'>
@@ -89,3 +100,5 @@ function App() {
 }
 
 export default App
+
+
