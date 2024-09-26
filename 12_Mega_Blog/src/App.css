@@ -40,3 +40,36 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+img {
+  max-width: 100%;
+  height: auto; /* Ensures images don't overflow */
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .container > div {
+    flex-basis: 100%;
+  }
+}
+
+/* For tablet and larger devices */
+@media (min-width: 769px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .menu {
+    display: block;
+  }
+}
